@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: Java utils for SphinxSearch
+Implementation-Version: 1.0
+Archiver-Version: 1.0 Archiver
+Built-By: Chris
+Class-Path: 
+
