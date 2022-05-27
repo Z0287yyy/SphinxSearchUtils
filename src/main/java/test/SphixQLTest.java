@@ -4,7 +4,7 @@
  * z0287yyy@foxmail.com
  */
 
-package chris.sphinxsearch.SphinxQL.test;
+package test;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
