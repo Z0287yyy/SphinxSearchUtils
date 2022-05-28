@@ -131,6 +131,7 @@ public class DBConnectionPool {
 		try {
 			Class.forName(Config.JDBCDriverName);
 			
+			DriverManager.setLoginTimeout(10);
 			conn = DriverManager.getConnection(Config.getDefaultSphinxUrl(), Config.UserName, Config.Password);
 		} catch (Exception e) {
 //			e.printStackTrace();

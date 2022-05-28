@@ -23,6 +23,8 @@ import chris.sphinxsearch.SphinxQL.jdbc.JDBCExecutor;
 import chris.sphinxsearch.SphinxQL.sql.SphinxQLCreateTable;
 import chris.sphinxsearch.SphinxQL.sql.SphinxQLInsert;
 import chris.sphinxsearch.SphinxQL.sql.SphinxQLUpdate;
+import chris.sphinxsearch.SphinxQL.sql.SphinxQLUtils;
+import chris.sphinxsearch.SphinxQL.sql.SphinxQLUtils.SqlMode;
 import chris.sphinxsearch.SphinxQL.utils.BooleanAdapter;
 import chris.sphinxsearch.SphinxQL.utils.GsonUtils;
 import chris.sphinxsearch.SphinxQL.utils.SUReflectUtils;
@@ -155,18 +157,67 @@ public class BasicDao<T extends SphinxBaseEntity> {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param fieldName
+	 * @param fieldValue, if list use in, if other use eq
+	 * @return
+	 */
 	public List<T> findByField(String fieldName, Object fieldValue) {
 		try {
 			Field field = SUReflectUtils.getField(clazz, fieldName);
 			SphinxField spxF = field.getAnnotation(SphinxField.class);
 			
-			String sql = "select * from " + clazz.getSimpleName() + " where " + fieldName + " = ?";
+			StringBuilder sql = new StringBuilder();
+			Object params = fieldValue;
 			
 			if (spxF != null && spxF.isRTField()) {
-				sql = "select * from " + clazz.getSimpleName() + " where MATCH(?)";
+				sql.append("select * from " + clazz.getSimpleName() + " where MATCH(?)");
+				
+				StringBuilder sbParam = new StringBuilder();
+				if (fieldValue instanceof List) {
+					List<Object> vals = (List<Object>) fieldValue;
+					if (vals.size() <= 0) {
+						return null;
+					}
+					for (int i = 0; i < vals.size(); i++) {
+						if (i == 0) {
+						} else {
+							sbParam.append("|");
+						}
+						sbParam.append(vals.get(i));  // RTField only support string type
+					}
+					
+					params = sbParam.toString();
+				}
+			} else {
+				
+				sql.append("select * from " + clazz.getSimpleName() + " where " + fieldName);
+				if (fieldValue instanceof List) {
+					List<Object> vals = (List<Object>) fieldValue;
+					if (vals.size() <= 0) {
+						return null;
+					}
+					for (int i = 0; i < vals.size(); i++) {
+						if (i == 0) {
+							sql.append(" in (");
+						} else {
+							sql.append(", ");
+						}
+						sql.append("?");
+					}
+					sql.append(")");
+				} else {
+					sql.append(" = ?");
+				}
+				
 			}
 			
-			List<Map<String, Object>> res = execute.findMapByParams(sql, fieldValue);
+			
+			
+			
+			
+			List<Map<String, Object>> res = execute.findMapByParams(sql.toString(), params);
 			
 			return convert(res);
 		} catch (Exception e) {

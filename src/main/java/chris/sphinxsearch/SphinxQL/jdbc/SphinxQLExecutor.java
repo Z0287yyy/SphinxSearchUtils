@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -80,11 +81,18 @@ public class SphinxQLExecutor extends JDBCExecutor {
 
 			stmt = conn.prepareStatement(sql);
 			if (sqlWrap.parameters != null && sqlWrap.parameters.size() > 0) {
-				for (int i = 0; i < sqlWrap.parameters.size(); i++) {
-//					System.out.println(param.length);
-//					stmt.setString(i + 1, param[i].toString());
-					stmt.setObject(i + 1, sqlWrap.parameters.get(i));
-//					System.out.println("2222");
+				if (sqlWrap.parameters.get(0) instanceof List) {
+					List<Object> conditiond = (List<Object>) sqlWrap.parameters.get(0);
+					for (int i = 0; i < conditiond.size(); i++) {
+						stmt.setObject(i + 1, conditiond.get(i));
+					}
+				} else {
+					for (int i = 0; i < sqlWrap.parameters.size(); i++) {
+//						System.out.println(param.length);
+//						stmt.setString(i + 1, param[i].toString());
+						stmt.setObject(i + 1, sqlWrap.parameters.get(i));
+//						System.out.println("2222");
+					}
 				}
 			}
 			rs = stmt.executeQuery();
@@ -121,11 +129,11 @@ public class SphinxQLExecutor extends JDBCExecutor {
 				if (param[0] instanceof List) {
 					List<Object> conditiond = (List<Object>) param[0];
 					for (int i = 0; i < conditiond.size(); i++) {
-						stmt.setString(i + 1, conditiond.get(i).toString());
+						stmt.setObject(i + 1, conditiond.get(i));
 					}
 				} else {
 					for (int i = 0; i < param.length; i++) {
-						stmt.setString(i + 1, param[i].toString());
+						stmt.setObject(i + 1, param[i]);
 					}
 				}
 			}

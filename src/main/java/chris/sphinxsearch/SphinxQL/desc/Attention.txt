@@ -1,0 +1,6 @@
+
+
+
+OR is not supported yet but will be in the future.
+MATCH('query') is supported and maps to fulltext query
+

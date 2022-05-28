@@ -1,0 +1,75 @@
+http://sphinxsearch.com/docs/current.html#extended-syntax
+
+
+
+5.3. Extended query syntax
+The following special operators and modifiers can be used when using the extended matching mode:
+
+operator OR:
+
+hello | world
+operator MAYBE (introduced in verion 2.2.3-beta):
+
+hello MAYBE world
+operator NOT:
+
+hello -world
+hello !world
+field search operator:
+
+@title hello @body world
+field position limit modifier (introduced in version 0.9.9-rc1):
+
+@body[50] hello
+multiple-field search operator:
+
+@(title,body) hello world
+ignore field search operator (will ignore any matches of 'hello world' from field 'title'):
+
+@!title hello world
+ignore multiple-field search operator (if we have fields title, subject and body then @!(title) is equivalent to @(subject,body)):
+
+@!(title,body) hello world
+all-field search operator:
+
+@* hello
+phrase search operator:
+
+"hello world"
+
+proximity search operator:
+
+"hello world"~10
+quorum matching operator:
+
+"the world is a wonderful place"/3
+strict order operator (aka operator "before"):
+
+aaa << bbb << ccc
+exact form modifier (introduced in version 0.9.9-rc1):
+
+raining =cats and =dogs
+field-start and field-end modifier (introduced in version 0.9.9-rc2):
+
+^hello world$
+keyword IDF boost modifier (introduced in version 2.2.3-beta):
+
+boosted^1.234 boostedfieldend$^1.234
+NEAR, generalized proximity operator (introduced in version 2.0.1-beta):
+
+hello NEAR/3 world NEAR/4 "my test"
+SENTENCE operator (introduced in version 2.0.1-beta):
+
+all SENTENCE words SENTENCE "in one sentence"
+PARAGRAPH operator (introduced in version 2.0.1-beta):
+
+"Bill Gates" PARAGRAPH "Steve Jobs"
+ZONE limit operator:
+
+ZONE:(h3,h4)
+only in these titles
+
+ZONESPAN limit operator:
+
+ZONESPAN:(h2)
+only in a (single) title
