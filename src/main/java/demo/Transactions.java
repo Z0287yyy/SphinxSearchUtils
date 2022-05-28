@@ -4,7 +4,7 @@
  * z0287yyy@foxmail.com
  */
 
-package test;
+package demo;
 
 
 import chris.sphinxsearch.SphinxQL.entity.SphinxBaseEntity;

@@ -115,8 +115,8 @@ searchd
     listen          = 9306:mysql41    // mysql版本4
     log             = /Volumes/Base/sphinx/log/searchd.log
     query_log       = /Volumes/Base/sphinx/log/query.log
-    read_timeout    = 5
-    max_children    = 30
+    read_timeout    = 5    // 读取数据超时
+    max_children    = 30    // 最大连接数
     pid_file        = /Volumes/Base/sphinx/log/searchd.pid
     seamless_rotate = 1
     preopen_indexes = 1

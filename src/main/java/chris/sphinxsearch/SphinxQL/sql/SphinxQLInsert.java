@@ -17,7 +17,7 @@ import chris.sphinxsearch.SphinxQL.entity.SQLWrap;
 import chris.sphinxsearch.SphinxQL.entity.SphinxBaseEntity;
 import chris.sphinxsearch.SphinxQL.sql.SphinxQLUtils.SqlMode;
 import chris.sphinxsearch.SphinxQL.utils.SUReflectUtils;
-import test.Transactions;
+import demo.Transactions;
 
 public class SphinxQLInsert {
 

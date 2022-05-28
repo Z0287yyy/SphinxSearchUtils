@@ -19,7 +19,7 @@ import chris.sphinxsearch.SphinxQL.Config;
 
 public class DBConnectionPool {
 
-	private static int _poolSize = 10;
+	private static int _poolSize = 30;    // define  in sphinx.conf :: max_children
 	
 	private static int _timeoutSecond = 10;
 	

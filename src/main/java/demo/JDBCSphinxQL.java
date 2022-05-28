@@ -4,7 +4,7 @@
  * z0287yyy@foxmail.com
  */
 
-package test;
+package demo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
