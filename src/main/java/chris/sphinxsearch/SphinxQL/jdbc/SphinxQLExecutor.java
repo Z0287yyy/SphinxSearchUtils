@@ -76,7 +76,7 @@ public class SphinxQLExecutor extends JDBCExecutor {
 			// System.out.println("zzzzz:"+sql);
 			if (pageBean != null) {
 				pageBean.setTotalCount(getRowsCountMap(SphinxQLQuery.getCountQueryString(sql), sqlWrap.parameters));
-				sql += " limit " + pageBean.getStart() + "," + pageBean.getPageSize();
+				sql += " limit " + pageBean.getStart() + "," + pageBean.getPageSize() + " option max_matches = " + (pageBean.getPage() * pageBean.getPageSize());
 			}
 
 			stmt = conn.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class SphinxQLExecutor extends JDBCExecutor {
 
 			if (pageBean != null) {
 				pageBean.setTotalCount(getRowsCountList(SphinxQLQuery.getCountQueryString(sql)));
-				sql += " limit " + pageBean.getStart() + "," + pageBean.getPageSize();
+				sql += " limit " + pageBean.getStart() + "," + pageBean.getPageSize() + " option max_matches = " + (pageBean.getPage() * pageBean.getPageSize());
 			}
 
 			stmt = conn.prepareStatement(sql);

@@ -261,7 +261,7 @@ public class BasicDao<T extends SphinxBaseEntity> {
 	}
 	
 	public List<T> find(PageBean page) {
-		String sql = "select * from " + clazz.getSimpleName() + " limit " + (page.getPage() - 1) * page.getPageSize() + "," + page.getPageSize();
+		String sql = "select * from " + clazz.getSimpleName() + " limit " + (page.getPage() - 1) * page.getPageSize() + "," + page.getPageSize() + " option max_matches = " + (page.getPage() * page.getPageSize());
 		List<Map<String, Object>> res = execute.findMap(sql);
 		return convert(res);
 	}
