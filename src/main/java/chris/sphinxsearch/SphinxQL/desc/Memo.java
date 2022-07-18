@@ -143,5 +143,47 @@ searchd
 	
 //
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+/*
+ select * from Transactions limit 100,10
+
+
+select count(*) from Transactions
+
+select max(id) as maxid from Transactions
+
+
+select * from Transactions where id = 33063882
+
+select * from Transactions where _id = '61cd2b2c8c184842c8549b2a'
+
+select * from Transactions where _id = '61cd2b2c8c184842c8549b2a' and txtime = 1279504359
+
+select * from Transactions where txtime = 1279504359
+
+
+select * from Transactions where block = 68965 limit 20;
+
+select * from Transactions where _count = 50.0 limit 20;
+
+
+select * from Transactions where address != '' limit 20
+
+
+select * from Transactions limit 0,100000 option max_matches = 100000
+
+
+
+select * from Transactions where MATCH('1NkBNT6pJ3Xfq5v39FJ9m7UM3rS8gV67C5|adf') limit 20
+
+ */
 	
 }
